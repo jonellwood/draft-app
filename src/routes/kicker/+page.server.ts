@@ -1,0 +1,15 @@
+// import { json } from 'body-parser';
+import type { PageServerLoad } from './$types';
+import { getKickers } from '$lib/server/db';
+
+import { error } from '@sveltejs/kit';
+
+export const load: PageServerLoad = (event) => {
+	const players = getKickers();
+	if (!players) {
+		throw error(404, 'Not found');
+	}
+	return {
+		players
+	};
+};

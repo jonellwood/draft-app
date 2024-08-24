@@ -11,7 +11,9 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<p>
+			visit <a href="https://theunhealthvegan.com">my site</a> to learn more about how awesome I am.
+		</p>
 	</footer>
 </div>
 
@@ -28,7 +30,7 @@
 		flex-direction: column;
 		padding: 1rem;
 		width: 100%;
-		max-width: 64rem;
+		max-width: 88rem;
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
@@ -43,6 +45,10 @@
 
 	footer a {
 		font-weight: bold;
+	}
+	input:checked:not(.keeper, .mykeeper) {
+		background-color: yellow;
+		color: #808080;
 	}
 
 	@media (min-width: 480px) {
