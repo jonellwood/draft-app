@@ -93,24 +93,54 @@ export function getDefense(): player[] {
 	return rows as player[];
 }
 export function getRoster(): player[] {
-	const sql = `select name, team, position 
-from players
-JOIN players_keeper on players_keeper.player_name = players.name
-where players_keeper.player_status = 'myteam'`;
+	const sql = `select * from players_keeper
+join players on players.name = players_keeper.player_name
+where player_status = 'myteam'`;
 	const stmt = db.prepare(sql);
 	const rows = stmt.all();
 	return rows as player[];
 }
-
-export function updateStatusToTaken(name: string) {
-	const sql = `UPDATE players_keeper SET player_status = 'taken' WHERE player_name = ?`;
+// these were changed for the new stuff
+export function updateStatusToTaken(id: number) {
+	const sql = `UPDATE all_players SET status = 'taken' WHERE id = ?`;
 	const stmt = db.prepare(sql);
-	stmt.run(name);
+	stmt.run(id);
 }
-export function updateStatusToMyTeam(name: string) {
-	const sql = `UPDATE players_keeper SET player_status = 'myteam' WHERE player_name = ?`;
+export function updateStatusToMyTeam(id: number) {
+	const sql = `UPDATE all_players SET status = 'myteam' WHERE id = ?`;
 	const stmt = db.prepare(sql);
-	stmt.run(name);
+	stmt.run(id);
 }
-
+export function updateStatusToWifeTeam(id: number) {
+	const sql = `UPDATE all_players SET status = 'wifeteam' WHERE id = ?`;
+	const stmt = db.prepare(sql);
+	stmt.run(id);
+}
+export function updateStatusToAvailable(id: number) {
+	const sql = `UPDATE all_players SET status = 'available' WHERE id = ?`;
+	const stmt = db.prepare(sql);
+	stmt.run(id);
+}
+// start new app stuff
+export function getAllPlayers(): player[] {
+	const sql = `SELECT * FROM all_players`;
+	const stmt = db.prepare(sql);
+	const rows = stmt.all();
+	return rows as player[];
+}
 export default db;
+
+export function getCASRoster(): player[] {
+	const sql = `select * from all_players
+	where status = 'myteam'`;
+	const stmt = db.prepare(sql);
+	const rows = stmt.all();
+	return rows as player[];
+}
+export function getWifeRoster(): player[] {
+	const sql = `select * from all_players
+	where status = 'wifeteam'`;
+	const stmt = db.prepare(sql);
+	const rows = stmt.all();
+	return rows as player[];
+}

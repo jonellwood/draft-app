@@ -1,6 +1,6 @@
 import { updateStatusToMyTeam } from '$lib/server/db';
 export async function POST({ request }) {
-	const { name } = await request.json();
-	await updateStatusToMyTeam(name);
+	const { id } = await request.json();
+	await updateStatusToMyTeam(id);
 	return new Response(null, { status: 200 });
 }

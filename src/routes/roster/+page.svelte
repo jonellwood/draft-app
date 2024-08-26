@@ -3,43 +3,25 @@
 	let { data: PageData } = $props();
 	console.log(PageData.roster);
 	let positions = [];
-
-	function getPositionDiv(position: string) {
-		const divs = document.querySelectorAll(`div:has(p:contains(${position}))`);
-		return divs[0]; // return the first matching div
+	function removeIntegers(str: string) {
+		return str.replace(/\d+/g, '').replace(/[^A-Z]+/g, '');
 	}
-
-	onMount(() => {
-		PageData.roster.forEach((player) => {
-			const position = player.position.replace(/\d+$/, '');
-			const div = getPositionDiv(position);
-			if (div) {
-				div.innerHTML += `
-          <div class="card ${player.status}">
-            <span class="badge">${player.position}</span>
-            <p>
-              ${player.name} - ${player.team}
-            </p>
-          </div>
-        `;
-			}
-		});
-	});
 </script>
 
 <div class="container">
 	{#each PageData.roster as player}
 		<div class="card {player.status}">
-			<span class="badge">{player.position}</span>
+			<span class="badge">{removeIntegers(player.position)}</span>
 			<p>
-				{player.name} - {player.team}
+				{player.player_name} - {player.team}
 			</p>
 		</div>
 	{/each}
 </div>
 
+<!-- 
 <div class="roster">
-	<p>QB</p>
+	<p>QB </p>
 	<p>RB</p>
 	<p>RB</p>
 	<p>WR</p>
@@ -57,7 +39,7 @@
 	<p>DL</p>
 	<p>LB</p>
 	<p>DB</p>
-</div>
+</div> -->
 
 <style>
 	.roster {

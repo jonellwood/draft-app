@@ -1,99 +1,174 @@
-<script>
-	import { tweened } from 'svelte/motion';
-	import { linear as easing } from 'svelte/easing';
-
-	let countdownDate = new Date('2024-08-24T14:00:00');
-	let days = 0;
-	let hours = 0;
-	let minutes = 0;
-	let seconds = 0;
-
-	function updateCountdown() {
-		const now = new Date();
-		const diff = countdownDate.getTime() - now.getTime();
-
-		if (diff <= 0) {
-			// countown is over clown
-			days = 0;
-			hours = 0;
-			minutes = 0;
-			seconds = 0;
+<script lang="ts">
+	let { data: PageData } = $props();
+	import { onMount } from 'svelte';
+	async function updateStatus(id: number) {
+		const response = await fetch('../api/update-status', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id })
+		});
+		if (response.ok) {
+			// success
+			window.location.reload();
 		} else {
-			days = Math.floor(diff / (1000 * 60 * 60 * 24));
-			hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-			seconds = Math.floor((diff % (1000 * 60)) / 1000);
+			// error
 		}
 	}
-	updateCountdown();
-	setInterval(updateCountdown, 1000);
+	async function updateTeam(id: number) {
+		const response = await fetch('../api/update-team', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id })
+		});
+		if (response.ok) {
+			// success
+			window.location.reload();
+		} else {
+			// error
+		}
+	}
+	async function updateAvailable(id: number) {
+		const response = await fetch('../api/update-available', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id })
+		});
+		if (response.ok) {
+			// success
+			window.location.reload();
+		} else {
+			// error
+		}
+	}
+	async function updateWifeTeam(id: number) {
+		const response = await fetch('../api/update-wife-team', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ id })
+		});
+		if (response.ok) {
+			// success
+			window.location.reload();
+		} else {
+			// error
+		}
+	}
+
+	let searchTerm: string = $state('');
+	let filteredPlayers = $state(PageData.players);
+
+	onMount(() => {
+		filteredPlayers = PageData.players;
+		//console.log(filteredPlayers);
+	});
+
+	$effect(() => {
+		filteredPlayers = PageData.players.filter((player) => {
+			console.log(searchTerm);
+			return player.name.toLowerCase().includes(searchTerm.toLowerCase());
+			// console.log(player.name.toLowerCase().includes(searchTerm.toLowerCase()));
+		});
+	});
 </script>
 
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
-
+<div class="search-box">
+	<input type="text" bind:value={searchTerm} placeholder="Search" />
+</div>
 <section>
-	<h1>Draft Countdown</h1>
-	<div class="timer">
-		<span>{days} d</span>
-		<span class="separator">:</span>
-		<span>{hours} h</span>
-		<span class="separator">:</span>
-		<span>{minutes} m</span>
-		<span class="separator">:</span>
-		<span>{seconds} s</span>
-	</div>
+	{#each filteredPlayers as player}
+		<div class="player-card {player.status}" data-id={player.id}>
+			<span class="top-card-row">
+				<span class="badge-holder">
+					<p class="badge {player.team}">{player.designation}</p>
+					<p class="status-badge {player.status}">{player.status}</p>
+				</span>
+				<span class="name-holder">
+					<p>{player.name} - {player.team} ({player.position})</p>
+				</span>
+			</span>
+			<div>
+				<div class="button-stack">
+					<button onclick={() => updateTeam(player.id)}>Add to My Team</button>
+					<button onclick={() => updateStatus(player.id)}>Mark Unavailable</button>
+					<button onclick={() => updateAvailable(player.id)}>Mark Available</button>
+					<button onclick={() => updateWifeTeam(player.id)}>Add to Wife Team</button>
+				</div>
+			</div>
+		</div>
+	{/each}
 </section>
 
 <style>
-	.timer {
-		font-family: 'Courier New', monospace;
-		font-size: 48px;
-		font-weight: bold;
-		text-align: center;
-
-		color: #ffbf00;
-		background-color: #000000; /* Black background */
-		padding: 20px;
-		border-radius: 10px;
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-	}
-
-	.timer span {
-		margin: 0 10px;
-	}
-
-	.timer span.separator {
-		font-size: 24px;
-		margin: 0 5px;
-	}
 	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 25px;
+	}
+	.player-card {
+		display: grid;
+		grid-template-rows: 1fr;
+		padding: 10px;
+		border-radius: 5px;
+		box-shadow: 0 0 20px -5px rgba(255, 255, 255, 0.8);
+	}
+	.available {
+		background-color: white;
+	}
+	.search-box {
+		line-height: 1.5;
+		font-size: x-large;
+		margin: 10px;
+	}
+	.top-card-row {
+		display: grid;
+		justify-content: space-around;
+		align-content: center;
 		align-items: center;
-		flex: 0.6;
+		grid-template-columns: 29% 69%;
 	}
-
-	h1 {
-		width: 100%;
+	.badge-holder {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-content: center;
+		align-items: center;
+		.myteam {
+			background-color: #00008b70;
+			color: #ffffff;
+			border: 1px solid #00008b;
+		}
+		.wifeteam {
+			background-color: #ff6ec770;
+			color: #ffffff;
+			border: 1px solid #00008b;
+		}
 	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
+	.status-badge {
+		margin-right: -320px;
+		margin-top: -70px;
+		transform: rotate(-16deg);
+		text-transform: uppercase;
+		font-weight: bold;
+		color: #990000;
+		letter-spacing: 1px;
+		background-color: rgba(255, 0, 0, 0.5);
+		padding: 2px 5px;
+		border: 1px solid #990000;
+		border-radius: 2px;
+		box-shadow: 0 0 25px -5px #000000;
 	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	.name-holder {
+		display: flex;
+		justify-content: space-between;
+		align-content: center;
+		align-items: center;
+		p {
+			font-weight: bold;
+			font-size: large;
+		}
 	}
 </style>

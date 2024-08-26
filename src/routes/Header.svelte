@@ -11,10 +11,14 @@
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 				<a href="/">Home</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/overall' ? 'page' : undefined}>
-				<a href="/overall">All</a>
+
+			<li aria-current={$page.url.pathname === '/casRoster' ? 'page' : undefined}>
+				<a href="/casRoster">My Roster</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/quarterbacks' ? 'page' : undefined}>
+			<li aria-current={$page.url.pathname === '/wifeRoster' ? 'page' : undefined}>
+				<a href="/wifeRoster">Wife Roster</a>
+			</li>
+			<!--- <li aria-current={$page.url.pathname === '/quarterbacks' ? 'page' : undefined}>
 				<a href="/quarterbacks">QB</a>
 			</li>
 			<li aria-current={$page.url.pathname === '/tightends' ? 'page' : undefined}>
@@ -46,7 +50,7 @@
 			</li>
 			<li aria-current={$page.url.pathname === '/roster' ? 'page' : undefined}>
 				<a href="/roster">Roster</a>
-			</li>
+			</li> -->
 		</ul>
 	</nav>
 

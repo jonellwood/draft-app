@@ -1,7 +1,7 @@
-import { updateStatusToTaken } from '$lib/server/db';
+import { updateStatusToAvailable } from '$lib/server/db';
 
 export async function POST({ request }) {
 	const { id } = await request.json();
-	await updateStatusToTaken(id);
+	await updateStatusToAvailable(id);
 	return new Response(null, { status: 200 });
 }

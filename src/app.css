@@ -2,7 +2,7 @@
 	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
-	--color-bg-0: #000000;
+	--color-bg-0: #808080;
 	--color-bg-1: #00000050;
 	--color-bg-2: #ffbf00;
 	--color-theme-1: #ff3e00;
@@ -20,12 +20,12 @@ body {
 	background-attachment: fixed;
 	background-color: var(--color-bg-0);
 	background-size: 100vw 100vh;
-	background-image: radial-gradient(
+	/* background-image: radial-gradient(
 			50% 50% at 50% 50%,
 			rgba(255, 255, 255, 0.75) 0%,
 			rgba(255, 255, 255, 0) 100%
 		),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%); */
 }
 
 h1,
@@ -106,7 +106,7 @@ button:focus:not(:focus-visible) {
 .badge {
 	background-color: hotpink;
 	border-radius: 50%;
-	padding: 3px;
+	padding: 7px;
 	color: white;
 	display: flex;
 	align-items: center;
@@ -137,6 +137,10 @@ button:focus:not(:focus-visible) {
 	background-color: dodgerblue;
 	color: white;
 }
+.wifeteam {
+	background-color: #ff007f;
+	color: #ffff;
+}
 .taken {
 	background-color: #8b000050;
 	p {
@@ -145,6 +149,99 @@ button:focus:not(:focus-visible) {
 }
 .button-stack {
 	display: grid;
-	grid-template-columns: 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	gap: 2px;
+}
+.SF {
+	background-color: #b71c1f;
+} /* San Francisco 49ers */
+.DET {
+	background-color: #0076b6;
+} /* Detroit Lions */
+.CAR {
+	background-color: #0085ca;
+} /* Carolina Panthers */
+.DAL {
+	background-color: #002240;
+} /* Dallas Cowboys */
+
+.NE {
+	background-color: #002240;
+} /* New England Patriots */
+.PIT {
+	background-color: #bfbfbe;
+} /* Pittsburgh Steelers */
+.BAL {
+	background-color: #6f003d;
+} /* Baltimore Ravens */
+.CIN {
+	background-color: #0085ca;
+} /* Cincinnati Bengals */
+.CLE {
+	background-color: #3b214d;
+} /* Cleveland Browns */
+.HOU {
+	background-color: #032041;
+} /* Houston Texans */
+.IND {
+	background-color: #00265e;
+} /* Indianapolis Colts */
+.JAX {
+	background-color: #0085ca;
+} /* Jacksonville Jaguars */
+.TEN {
+	background-color: #002240;
+} /* Tennessee Titans */
+.DEN {
+	background-color: #fb4f14;
+} /* Denver Broncos */
+.KC {
+	background-color: #b71c1f;
+} /* Kansas City Chiefs */
+.LV {
+	background-color: #000000;
+} /* Las Vegas Raiders */
+.LAC {
+	background-color: #00b4c9;
+} /* Los Angeles Chargers */
+.SEA {
+	background-color: #6cbe4e;
+} /* Seattle Seahawks */
+.ARI {
+	background-color: #972337;
+} /* Arizona Cardinals */
+
+.TB {
+	background-color: #b4975a;
+} /* Tampa Bay Buccaneers */
+.ATL {
+	background-color: #a71930;
+} /* Atlanta Falcons */
+.MIA {
+	background-color: #008e97;
+} /* Miami Garoppolo */
+.MIN {
+	background-color: #4f2683;
+} /* Minnesota Vikings */
+.WAS {
+	background-color: #002244;
+} /* Washington Football Team */
+
+.NYJ {
+	background-color: #125740;
+} /* New York Jets */
+.NYG {
+	background-color: #0b2265;
+} /* New York Giants */
+.SEA {
+	background-color: #6cbe4e;
+}
+.GB {
+	background-color: #262d31;
+}
+.CHI {
+	background-color: #0b162b;
+}
+.LAR {
+	background-color: #ffa300;
 }

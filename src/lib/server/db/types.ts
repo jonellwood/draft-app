@@ -5,4 +5,5 @@ export type player = {
 	status: string;
 	position: string;
 	rank: number;
+	designation: string;
 };
